@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 
 app.get('/data', async (req, res) => {
-  const table = req.query.table || 'items';
+  const table = req.query.table || 'mytable';
   const sort = req.query.sort || 'id';
   const direction = req.query.direction === 'desc' ? 'DESC' : 'ASC';
 
