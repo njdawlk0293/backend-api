@@ -1,0 +1,2 @@
+DATABASE_URL=postgresql://mytable_en5o_user:l7DQwBtJIeFtJKGWC1XmwFBhL4nF5P9z@dpg-d4m8jv2li9vc73em8960-a.oregon-postgres.render.com/mytable_en5o
+PORT=3000
