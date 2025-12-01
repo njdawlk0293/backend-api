@@ -1,21 +1,21 @@
 import pkg from 'pg';
-const { Pool } = pkg;
 import dotenv from 'dotenv';
-dotenv.config();
 
-// Определяем, находимся ли мы на облачном сервере Render
-const isOnline = process.env.DATABASE_URL ? true : false;
-console.log('isOnline:', isOnline)
+dotenv.config();
+const { Pool } = pkg;
+
+// Определяем, находимся ли мы на облачном сервере
+const connectionString = process.env.DATABASE_URL;
 
 // Настройки пула
 export const pool = new Pool({
-  connectionString: isOnline ? process.env.DATABASE_URL : undefined,
-  host: !isOnline ? process.env.PGHOST : undefined,
-  user: !isOnline ? process.env.PGUSER : undefined,
-  password: !isOnline ? process.env.PGPASSWORD : undefined,
-  database: !isOnline ? process.env.PGDATABASE : undefined,
-  port: !isOnline ? process.env.PGPORT : undefined,
-  ssl: isOnline ? { rejectUnauthorized: false } : false
+  connectionString: connectionString || undefined,
+  ssl: connectionString ? { rejectUnauthorized: false } : false,
+  host: connectionString ? undefined : process.env.PGHOST,
+  user: connectionString ? undefined : process.env.PGUSER,
+  password: connectionString ? undefined : process.env.PGPASSWORD,
+  database: connectionString ? undefined : process.env.PGDATABASE,
+  port: connectionString ? undefined : process.env.PGPORT,
 });
 
 // Соединение
